@@ -19,5 +19,5 @@ class Rating_count(MRJob):
 
 """the below 2 lines are ensuring the execution of mrjob, the program will not
 execute without them"""
-if _name_ == '_main_':
+if __name__ == '__main__':
 	Rating_count.run()
