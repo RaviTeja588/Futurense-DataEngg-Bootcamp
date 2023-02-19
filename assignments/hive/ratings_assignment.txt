@@ -1,0 +1,73 @@
+hive> create table rating(userid int,movieid int,rating decimal(10,2),timestampp bigint)
+    > comment "Rating details"
+    > ROW FORMAT DELIMITED
+    > FIELDS TERMINATED BY ","
+    > LINES TERMINATED BY "\n"
+    > STORED AS TEXTFILE;
+OK
+Time taken: 0.425 seconds
+
+hive> LOAD DATA LOCAL INPATH '/home/ravi/Futurense-DataEngg-Bootcamp/assignments/hadoop/mr/ratings.csv' OVERWRITE INTO TABLE rating;
+Loading data to table hive_training.rating
+OK
+Time taken: 0.416 seconds
+hive> select count(*) from rating;
+Query ID = ravi_20230216213248_2314bb94-040f-4a44-ac94-6cd594c949a3
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1676540987547_0008, Tracking URL = http://MILE-BL-4409-LAP.localdomain:8088/proxy/application_1676540987547_0008/
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1676540987547_0008
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-02-16 21:32:56,386 Stage-1 map = 0%,  reduce = 0%
+2023-02-16 21:33:00,577 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.43 sec
+2023-02-16 21:33:05,729 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.56 sec
+MapReduce Total cumulative CPU time: 4 seconds 560 msec
+Ended Job = job_1676540987547_0008
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 4.56 sec   HDFS Read: 2395857 HDFS Write: 106 SUCCESSTotal MapReduce CPU Time Spent: 4 seconds 560 msec
+OK
+100837
+Time taken: 18.477 seconds, Fetched: 1 row(s)
+
+hive> select rating,count(rating) comment 'count' from rating group by rating;
+FAILED: ParseException line 1:36 missing EOF at ''count'' near 'comment'
+hive> select rating,count(rating) from rating group by rating;
+Query ID = ravi_20230216213403_0069baed-fb47-4541-9182-ccc20eb985f8
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1676540987547_0009, Tracking URL = http://MILE-BL-4409-LAP.localdomain:8088/proxy/application_1676540987547_0009/
+Kill Command = /opt/hadoop/bin/mapred job  -kill job_1676540987547_0009
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-02-16 21:34:08,825 Stage-1 map = 0%,  reduce = 0%
+2023-02-16 21:34:14,018 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.88 sec
+2023-02-16 21:34:19,173 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.04 sec
+MapReduce Total cumulative CPU time: 7 seconds 40 msec
+Ended Job = job_1676540987547_0009
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.04 sec   HDFS Read: 2396848 HDFS Write: 322 SUCCESSTotal MapReduce CPU Time Spent: 7 seconds 40 msec
+OK
+0.5     1370
+1.0     2811
+1.5     1791
+2.0     7551
+2.5     5550
+3.0     20047
+3.5     13136
+4.0     26818
+4.5     8551
+5.0     13211
+Time taken: 18.112 seconds, Fetched: 11 row(s)
