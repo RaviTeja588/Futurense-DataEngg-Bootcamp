@@ -146,7 +146,22 @@ OK
 
 7) Get sample transactions
 ----------------------------
+select * from transactions limit 10;
 
++------------------------+--------------------------+-----------------------+----------------------+-------------------------+------------------------------------+--------------------+---------------------+-------------------------+
+| transactions.trans_id  | transactions.trans_date  | transactions.cust_id  | transactions.amount  |  transactions.category  |         transactions.desc          | transactions.city  | transactions.state  | transactions.pymt_mode  |
++------------------------+--------------------------+-----------------------+----------------------+-------------------------+------------------------------------+--------------------+---------------------+-------------------------+
+| 0                      | 06-26-2011               | 4000001               | 40.33                | Exercise & Fitness      | Cardio Machine Accessories         | Clarksville        | Tennessee           | credit                  |
+| 1                      | 05-26-2011               | 4000002               | 198.44               | Exercise & Fitness      | Weightlifting Gloves               | Long Beach         | California          | credit                  |
+| 2                      | 06-01-2011               | 4000002               | 5.58                 | Exercise & Fitness      | Weightlifting Machine Accessories  | Anaheim            | California          | credit                  |
+| 3                      | 06-05-2011               | 4000003               | 198.19               | Gymnastics              | Gymnastics Rings                   | Milwaukee          | Wisconsin           | credit                  |
+| 4                      | 12-17-2011               | 4000002               | 98.81                | Team Sports             | Field Hockey                       | Nashville          | Tennessee           | credit                  |
+| 5                      | 02-14-2011               | 4000004               | 193.63               | Outdoor Recreation      | Camping & Backpacking & Hiking     | Chicago            | Illinois            | credit                  |
+| 6                      | 10-28-2011               | 4000005               | 27.89                | Puzzles                 | Jigsaw Puzzles                     | Charleston         | South Carolina      | credit                  |
+| 7                      | 07-14-2011               | 4000006               | 96.01                | Outdoor Play Equipment  | Sandboxes                          | Columbus           | Ohio                | credit                  |
+| 8                      | 01-17-2011               | 4000006               | 10.44                | Winter Sports           | Snowmobiling                       | Des Moines         | Iowa                | credit                  |
+| 9                      | 05-17-2011               | 4000006               | 152.46               | Jumping                 | Bungee Jumping                     | St. Petersburg     | Florida             | credit                  |
++------------------------+--------------------------+-----------------------+----------------------+-------------------------+------------------------------------+--------------------+---------------------+-------------------------+
 
 
 
