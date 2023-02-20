@@ -53,8 +53,8 @@ select percentile(cast(balance as bigint),0.5),avg(balance) from bankmarket;
 
                 (OR)
 
-select a.median as median_balance,b.average as avg_balace from (select b as median from (select b,rn as rn ,max(rn) over() as mrn from
- (select balance b,row_number() over(order by balance) as rn from bankmarket where balance is not null)a)a1 where rn=int(mrn/2)+1)a,(select avg(balance) as average from bankmarket) b;
+select a.median as medianbalance,b.average as averagebalace from (select b as median from (select b,rn as rn ,max(rn) over() as maxrn from
+ (select balance b,row_number() over(order by balance) as rn from bankmarket where balance is not null)a)a1 where rn=int(maxrn/2)+1)a,(select avg(balance) as average from bankmarket) b;
 
 Total MapReduce CPU Time Spent: 25 seconds 480 msec
 OK
