@@ -15,24 +15,24 @@ TABLE CREATION
 
 1)
 
-select (SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"yes\"")/count(*) from BankMarket;
+select ((SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"yes\"")/count(*))*100 as Success_Rate from BankMarket;
 
 +----------------------+
-|         _c0          |
+|     Success_Rate     |
 +----------------------+
-| 0.11698221711050164  |
+| 11.698221711050164  |
 +----------------------+
 1 row selected (54.319 seconds)
 
 
 2)
 
-select (SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"no\"")/count(*) from BankMarket;
+select ((SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"no\"")/count(*))*100 as Failure_Rate from BankMarket;
 
 +---------------------+
-|         _c0         |
+|    Failure_Rate     |
 +---------------------+
-| 0.8829956648677342  |
+| 88.29956648677342  |
 +---------------------+
 1 row selected (53.473 seconds)
 
