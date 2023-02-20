@@ -49,7 +49,7 @@ select max(age),min(age),avg(age) from bankmarket;
 
 4)
 
-select avg(balance),percentile(cast(balance as bigint),0.5) from bankmarket;
+select percentile(cast(balance as bigint),0.5),avg(balance) from bankmarket;
 
                 (OR)
 
