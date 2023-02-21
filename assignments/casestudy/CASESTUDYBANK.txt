@@ -15,24 +15,24 @@ TABLE CREATION
 
 1)
 
-select (SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"yes\"")/count(*) from BankMarket;
+select ((SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"yes\"")/count(*))*100 as Success_Rate from BankMarket;
 
 +----------------------+
-|         _c0          |
+|     Success_Rate     |
 +----------------------+
-| 0.11698221711050164  |
+| 11.698221711050164  |
 +----------------------+
 1 row selected (54.319 seconds)
 
 
 2)
 
-select (SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"no\"")/count(*) from BankMarket;
+select ((SELECT COUNT(Y) FROM BANKMARKET WHERE y="\"no\"")/count(*))*100 as Failure_Rate from BankMarket;
 
 +---------------------+
-|         _c0         |
+|    Failure_Rate     |
 +---------------------+
-| 0.8829956648677342  |
+| 88.29956648677342  |
 +---------------------+
 1 row selected (53.473 seconds)
 
@@ -49,12 +49,12 @@ select max(age),min(age),avg(age) from bankmarket;
 
 4)
 
-select avg(balance),percentile(cast(balance as bigint),0.5) from bankmarket;
+select percentile(cast(balance as bigint),0.5),avg(balance) from bankmarket;
 
                 (OR)
 
-select a.median as median_balance,b.average as avg_balace from (select b as median from (select b,rn as rn ,max(rn) over() as mrn from
- (select balance b,row_number() over(order by balance) as rn from bankmarket where balance is not null)a)a1 where rn=int(mrn/2)+1)a,(select avg(balance) as average from bankmarket) b;
+select a.median as medianbalance,b.average as averagebalace from (select b as median from (select b,rn as rn ,max(rn) over() as maxrn from
+ (select balance b,row_number() over(order by balance) as rn from bankmarket where balance is not null)a)a1 where rn=int(maxrn/2)+1)a,(select avg(balance) as average from bankmarket) b;
 
 Total MapReduce CPU Time Spent: 25 seconds 480 msec
 OK
