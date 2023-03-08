@@ -6,10 +6,24 @@ from pyspark.sql.functions import *
 
 Bank_DF = spark.read.format("csv").load("/mnt/c/Users/miles.MILE-BL-4409-LA/futurense_hadoop-pyspark/labs/dataset/bankmarket/bankmarketdata.csv", header=True, sep = ";", escape = ",", inferSchema = True )
 
-output=spark.sql("Select age,count(age) from Bank where y='yes' group by age")
+Bank_DF.registerTempTable("Bank")
 
-output.write.parquet("hdfs://localhost:9000/user/training/bankmarketing/out/parquet")
+output=spark.sql("select (case when age<13 then 'Kids' when age<20 then 'Teenagers' \
+           when age < 31 then 'Young' \
+           when age<50 then 'MiddleAgers' else 'Seniors' end) as peopletype,count(age) from bank where y='yes' group by peopletype order by count(age)")
 
-data=spark.read.parquet("hdfs://localhost:9000/user/training/bankmarketing/out/parquet/part-00000-9b27639c-8190-405c-a9f3-79fc17fcc482-c000.snappy.parquet")
+output.write.parquet("hdfs://localhost:9000/user/training/bankmarketing/out/parquet10")
+
+data=spark.read.parquet("hdfs://localhost:9000/user/training/bankmarketing/out/parquet10")
 
 data.show()
+
+output1=spark.sql("select (case when age<13 then 'Kids' when age<20 then 'Teenagers' \
+           when age < 31 then 'Young' \
+           when age<50 then 'MiddleAgers' else 'Seniors' end) as peopletype,count(age) as age from bank where y='yes' group by peopletype having count(age)>2000")
+
+output1.select("peopletype","age").write.format("avro").save("hdfs://localhost:9000/user/training/bankmarketing/out/avro4")
+
+data1=spark.read.format("avro").load("hdfs://localhost:9000/user/training/bankmarketing/out/avro4")
+
+data1.show()
